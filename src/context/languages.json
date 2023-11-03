@@ -1,0 +1,50 @@
+{
+	"en":{
+		"name":"English",
+		"nativeName":"English"
+	},
+	"ab":{
+		"name":"Abkhaz",
+		"nativeName":"аҧсуа"
+	},
+	"aa":{
+		"name":"Afar",
+		"nativeName":"Afaraf"
+	},
+	"am":{
+		"name":"Amharic",
+		"nativeName":"አማርኛ"
+	},
+	"ar":{
+		"name":"Arabic",
+		"nativeName":"العربية"
+	},
+	"an":{
+		"name":"Aragonese",
+		"nativeName":"Aragonés"
+	},
+	"eu":{
+		"name":"Basque",
+		"nativeName":"euskara, euskera"
+	},
+	"be":{
+		"name":"Belarusian",
+		"nativeName":"Беларуская"
+	},
+	"ch":{
+		"name":"Chamorro",
+		"nativeName":"Chamoru"
+	},
+	"ce":{
+		"name":"Chechen",
+		"nativeName":"нохчийн мотт"
+	},
+	"zh":{
+		"name":"Chinese",
+		"nativeName":"中文 (Zhōngwén), 汉语, 漢語"
+	},
+	"cv":{
+		"name":"Chuvash",
+		"nativeName":"чӑваш чӗлхи"
+	}
+}
