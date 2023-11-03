@@ -18,7 +18,7 @@ import Theme from './components/theme';
 function App() {
 	const location = useLocation();
 
-	const { loading, account } = useSocket()
+	const { loading } = useSocket()
 
 	React.useEffect(() => {
 		window.scrollTo(0, 0);

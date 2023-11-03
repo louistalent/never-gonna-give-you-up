@@ -9,7 +9,7 @@ import { MessageBox } from '../components/message-box';
 import useSocket from '../context/use-socket';
 
 const Layout = () => {
-	const { darkTheme, account } = useSocket()
+	const { darkTheme } = useSocket()
 
 	// const [status, setStatus] = React.useState({
 	// 	isOpen: false,
@@ -47,7 +47,6 @@ const Layout = () => {
 			<StyledToTop style={{ display: toTop ? 'flex' : 'none' }} onClick={() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }) }}>
 				<img src="/assets/img/top.svg" alt="to-top" />
 			</StyledToTop>
-			{(!!account?.isBuyer || !!account?.isSeller) && <MessageBox />}
 		</div>
 	)
 }

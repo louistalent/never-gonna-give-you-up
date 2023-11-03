@@ -487,7 +487,7 @@ const StyledSection = styled.div`
 		padding: 32px 8px;
 	}
 	.carousel-container{
-		z-index: 9999!important;
+		z-index: 1002!important;
 	}
 	.container-egg{
 		.eater-egg:hover{

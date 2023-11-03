@@ -8,9 +8,6 @@ import { config } from "../context";
 import useSocket from "../context/use-socket";
 import { emailEllipse } from "../context/helper";
 import Avatar from "../components/avatar";
-import NotificationMenu from "./menu-notification";
-import MenuMessage from "./menu-message";
-import MenuOrder from "./menu-order";
 import { Modal } from "../components/modal";
 import languages from '../context/languages.json'
 import { StyledSocialLoginBtn } from "../components/buttons";
@@ -18,7 +15,7 @@ import { StyledSocialLoginBtn } from "../components/buttons";
 
 export const Header = () => {
 	const navigate = useNavigate()
-	const { darkTheme, account, L, lang, update } = useSocket()
+	const { darkTheme, L, lang, update } = useSocket()
 	const location = useLocation()
 	const [isScrolled, setIsScrolled] = React.useState(false)
 	const [isMobile, setIsMobile] = React.useState(false)
@@ -51,10 +48,6 @@ export const Header = () => {
 		}
 	}
 
-	const logout = () => {
-		update({ account: null });
-		navigate('/');
-	}
 
 	React.useEffect(() => {
 		window.addEventListener('scroll', onScroll);
@@ -114,7 +107,7 @@ export const Header = () => {
 							{isMenuOpend && (
 								<div className="d between pt-1" style={{ width: '100%' }}>
 									<div className="d middle col-gap">
-										{!!account ? (
+										{/* {!!account ? (
 											<>
 												<Avatar icon={account.avatar} username={account.fullname || account.username || account.email} />
 												<div>{emailEllipse(account.email)}</div>
@@ -122,7 +115,7 @@ export const Header = () => {
 										) : (
 											<>
 											</>
-										)}
+										)} */}
 									</div>
 									<div className="close">
 										<span onClick={() => setIsMenuOpend(false)}>✕</span>
@@ -164,100 +157,20 @@ export const Header = () => {
 							</ul>
 						</div>
 						<ul>
-							{!account ? (
-								<>
-									<li style={{ position: 'relative' }} className="login d gap-sm center middle">
-										<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
-											<div className='btn twitter'><Icon icon='Twitter' size={20} /></div>
-										</StyledSocialLoginBtn>
-										<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
-											<div className='btn github'>
-												<Icon icon='Github' size={22} />
-											</div>
-										</StyledSocialLoginBtn>
-
-									</li>
-								</>
-							) : (
-								<>
-									<li style={{ position: 'relative' }} className="notification">
-										<Link to='/account/notifications' className="menu-icon">
-											<Icon icon="Notification" size={24} />
-											<div>Notifications</div>
-										</Link>
-										<StyledNewBadge><div></div></StyledNewBadge>
-										<NotificationMenu />
-									</li>
-									<li style={{ position: 'relative' }} className="contact">
-										<Link to='/account/contacts' className="menu-icon">
-											<Icon icon="Message" size={24} />
-											<div>Messages</div>
-										</Link>
-										<StyledNewBadge><div></div></StyledNewBadge>
-										<MenuMessage />
-									</li>
-									<li style={{ position: 'relative' }} className="order">
-										<Link to='/account/orders' className="menu-icon">
-											<Icon icon="Order" size={24} />
-											<div>Orders</div>
-										</Link>
-										{/* <StyledNewBadge><div></div></StyledNewBadge> */}
-										<MenuOrder />
-									</li>
-									<li style={{ padding: '0 1em', position: 'relative' }} className="avatar">
-										<div>
-											<Avatar icon={account.avatar} username={account.fullname || account.username || account.email} />
+							<>
+								<li style={{ position: 'relative' }} className="login d gap-sm center middle">
+									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
+										<div className='btn twitter'><Icon icon='Twitter' size={20} /></div>
+									</StyledSocialLoginBtn>
+									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
+										<div className='btn github'>
+											<Icon icon='Github' size={22} />
 										</div>
-										<StyledDropDown className="account-dropdown">
-											<div className="h5 p-1">{!!account?.email ? emailEllipse(account.email) : account.uid}</div>
-											<ul>
-												<li>
-													<Link to='/account/info'>
-														<Icon icon="Person" size={24} />
-														<div>Information</div>
-													</Link>
-												</li>
-												<li>
-													<Link to='/account/security'>
-														<Icon icon="Security" size={24} />
-														<div>Security</div>
-													</Link>
-												</li>
-												<li>
-													<Link to='/account/finance'>
-														<Icon icon="Coin" size={24} />
-														<div>Finance</div>
-													</Link>
-												</li>
-												{/* <li>
-													<Link to={account.isSeller ? '/account/freelancer-profile' : '/create-profile'}>
-														<Icon icon="Freelancer" size={24} />
-														<div>Freelancer Profile</div>
-													</Link>
-												</li> */}
-												{/* <li>
-													<Link to='/account/client-profile'>
-														<Icon icon="Client" size={24} />
-														<div>Client Profile</div>
-													</Link>
-												</li> */}
-												{/* <li>
-													<Link to='/account/proposals'>
-														<Icon icon="Proposals" size={24} />
-														<div>Proposals</div>
-													</Link>
-												</li> */}
-												<li>
-													<div onClick={logout}>
-														<Icon icon="LogOut" size={24} />
-														<div>Log Out</div>
-													</div>
-												</li>
-											</ul>
-										</StyledDropDown>
-									</li>
-								</>
-							)}
+									</StyledSocialLoginBtn>
+
+								</li>
+							</>
+
 							{/* <li><Link to='/'>Upload Resume</Link></li> */}
 
 

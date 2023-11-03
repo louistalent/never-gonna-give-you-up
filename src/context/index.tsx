@@ -15,8 +15,6 @@ export interface ContextDataType {
 	emailSent: number
 	connected: boolean
 	auth: AuthType | null
-	sellerProfile: FreelancerProfileType | null
-	account: AccountType | null
 	service: ServiceType | null
 }
 
@@ -44,7 +42,6 @@ interface ContextType extends ContextDataType {
 	timeAgo(time: number): string
 	showLoading(show: boolean): void
 	setCookie(extra?: Partial<ContextDataType>): void
-	logout(extra?: Partial<ContextDataType>): void
 }
 
 const Context = React.createContext<ContextType>(null!);
@@ -151,14 +148,10 @@ export const Provider = ({ children }: any) => {
 		update({ cookie, ...extra })
 	}
 
-	const logout = (extra?: Partial<ContextDataType>) => {
-		setCookie({ account: null, ...extra })
-		navigate('/')
-	}
 
 	const showLoading = (show: boolean) => update({ loading: show })
 	const [countries] = React.useState(Object.keys(en.countries).map(i => ({ key: i, label: T('countries.' + i), icon: `https://storage.Rickroll.io/flag/${i.toLowerCase()}.svg` })))
-	return <Context.Provider value={{ ...data, countries, en, L, T, timeAgo, setCookie, getLocation, getError, logout, showLoading, update }}>{children}</Context.Provider>
+	return <Context.Provider value={{ ...data, countries, en, L, T, timeAgo, setCookie, getLocation, getError, showLoading, update }}>{children}</Context.Provider>
 };
 
 export default Context;

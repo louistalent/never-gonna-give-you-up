@@ -1,9 +1,9 @@
 {
-  "short_name": "Rickroll_io",
-  "name": "Rickroll",
+  "short_name": "music_io",
+  "name": "Music",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "logo.png",
       "type": "image/ico"
     }
   ],
