@@ -132,6 +132,9 @@ export const Home = () => {
 			<audio id='audioEffectBtn' src="/assets/rickroll-effect.mp3" />
 			<audio id='audioBtn' src="/assets/never.mp3" />
 
+
+
+
 			{/* <StyledSection style={{ backgroundColor: 'var(--light)' }}>
 				<h2 className='text-center'><span>Verified Pro </span><span className='primary-text'>Services</span></h2>
 				<div className='text-center'>Hand-vetted talent for all your professional needs. </div>
@@ -176,6 +179,9 @@ export const Home = () => {
 				<div className="Rickroll" style={{ backgroundImage: 'linear-gradient(to bottom,var(--light) 0%,rgba(0,0,0,0) 100%)' }}>
 					Music
 				</div>
+
+
+
 			</StyledHomeSection >
 
 			<StyledSection style={{ backgroundColor: 'var(--light)' }}>
@@ -225,6 +231,9 @@ export const Home = () => {
 						Rickroll by Categories
 					</span>
 				</p>
+				<video src="https://www.youtube.com/watch?v=bnmAi53H520" width="320" height="240">
+
+				</video>
 				{/* <h2 className='text-center' style={{ lineHeight: 1.1 }}>
 					Choose Your Desire
 					<br />

@@ -91,7 +91,7 @@ export const Header = () => {
 				<div className={`main ${status.isDashboard ? 'ml-1 mr-1' : 'container'}`}>
 					<div>
 						<Link to='/' style={{ paddingBottom: '0.1em', paddingTop: '0.5rem' }}>
-							<img src="/logo.png" alt="logo" width={40} height={50} />
+							<img src="/pingu.jpg" alt="logo" width={40} height={50} />
 
 							{/* <div style={{fontWeight: 900, fontSize: 24, color: 'var(--primary)'}}>WORK</div> */}
 						</Link>
@@ -100,7 +100,7 @@ export const Header = () => {
 					<div className={`${isMenuOpend ? '' : 'hide'}`}>
 						<div>
 							<Link to='/' style={{ paddingBottom: '0.1em' }}>
-								<img src="/logo.png" alt="logo" width={40} height={50} />
+								<img src="/pingu.jpg" alt="logo" width={40} height={50} />
 
 								{/* <span style={{fontSize: 24, color: 'var(--primary)', fontWeight: 700}}>WORK</span> */}
 							</Link>
