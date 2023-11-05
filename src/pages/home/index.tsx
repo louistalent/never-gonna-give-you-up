@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import Carousel from "react-multi-carousel";
@@ -13,14 +13,20 @@ import { Modal } from '../../components/modal';
 import { Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
 
 const serviceCategories = [
-	{ title: 'Meme 1', img: '/assets/img/meme/meme-1.png' },
-	{ title: 'Meme 2', img: '/assets/img/meme/meme-2.png' },
-	{ title: 'Meme 3', img: '/assets/img/meme/meme-3.png' },
-	{ title: 'Meme 4', img: '/assets/img/meme/meme-4.png' },
-	{ title: 'Meme 5', img: '/assets/img/meme/meme-5.png' },
-	{ title: 'Meme 6', img: '/assets/img/meme/meme-6.png' },
-	{ title: 'Meme 7', img: '/assets/img/meme/meme-7.png' },
-	{ title: 'Meme 8', img: '/assets/img/meme/meme-8.png' },
+	{ title: 'Meme 2', img: '/assets/img/pingu/pingu2.jpg' },
+	{ title: 'Meme 3', img: '/assets/img/pingu/pingu3.jpg' },
+	{ title: 'Meme 4', img: '/assets/img/pingu/pingu4.jpg' },
+	{ title: 'Meme 5', img: '/assets/img/pingu/pingu5.jpg' },
+	{ title: 'Meme 6', img: '/assets/img/pingu/pingu6.jpg' },
+	{ title: 'Meme 7', img: '/assets/img/pingu/pingu7.jpg' },
+	{ title: 'Meme 8', img: '/assets/img/pingu/pingu8.jpg' },
+	{ title: 'Meme 9', img: '/assets/img/pingu/pingu9.jpg' },
+	{ title: 'Meme 10', img: '/assets/img/pingu/pingu10.jpg' },
+	{ title: 'Meme 11', img: '/assets/img/pingu/pingu11.jpg' },
+	{ title: 'Meme 12', img: '/assets/img/pingu/pingu12.jpg' },
+	{ title: 'Meme 13', img: '/assets/img/pingu/pingu13.jpg' },
+	{ title: 'Meme 14', img: '/assets/img/pingu/pingu14.jpg' },
+	{ title: 'Meme 15', img: '/assets/img/pingu/pingu15.jpg' },
 ]
 
 const responsive = {
@@ -126,6 +132,18 @@ export const Home = () => {
 		targetAudio = window.document.getElementById("audioBtn");
 		targetAudioEffect = window.document.getElementById("audioEffectBtn");
 	})
+	const videoEl: any = useRef(null);
+
+	const attemptPlay = () => {
+		videoEl &&
+			videoEl.current &&
+			videoEl.current.play().catch(error => {
+				console.error("Error attempting to play", error);
+			});
+	};
+	useEffect(() => {
+		attemptPlay();
+	}, []);
 	return (
 		<div>
 
@@ -140,7 +158,17 @@ export const Home = () => {
 				<div className='text-center'>Hand-vetted talent for all your professional needs. </div>
 				<img src="/assets/img/home/giphy.gif" alt="" width={'100%'} height={400} className="" />
 			</StyledSection> */}
-			<StyledHomeSection style={{ backgroundImage: darkTheme ? 'url(/assets/img/home/giphy.gif)' : 'url(/assets/img/home/giphy.gif)', backgroundSize: '100% 100%', backgroundPosition: 'center center' }}>
+			<StyledHomeSection style={{ backgroundSize: '100% 100%', backgroundPosition: 'center center' }}>
+				<div className="bg-video">
+					<video
+						style={{ maxWidth: "100%", width: "100%", height: '100%' }}
+						playsInline
+						loop
+						muted
+						src="/assets/noot-noot-pingu3d.mp4"
+						ref={videoEl}
+					/>
+				</div>
 				<div className='container'>
 					<div className='row'>
 						<div className='col-lg-8 col-md-8 col-sm-12'>
@@ -162,7 +190,6 @@ export const Home = () => {
 						<div className='col-lg-4 col-md-4 col-sm-12 d column center md-hide'>
 							<div className="image">
 								<img src='/assets/record-black.png' alt="home-image" className='back' />
-								{/* <img src='/assets/img/freelance.svg' alt="home-image" style={{ position: 'relative' }} /> */}
 								<img src='/assets/record-trans.png' alt="home-image" style={{ position: 'relative', visibility: 'hidden' }} />
 							</div>
 						</div>
@@ -176,11 +203,9 @@ export const Home = () => {
 					</Button>
 				</div>
 				{/* <div className="Rickroll" style={{ backgroundImage: darkTheme ? 'linear-gradient(to bottom,var(--light) 0%,rgba(0,0,0,0) 100%)' : 'linear-gradient(to bottom,rgba(192,213,240,.65) 0%,rgba(0,0,0,0) 100%)' }}> */}
-				<div className="Rickroll" style={{ backgroundImage: 'linear-gradient(to bottom,var(--light) 0%,rgba(0,0,0,0) 100%)' }}>
+				{/* <div className="Rickroll" style={{ backgroundImage: 'linear-gradient(to bottom,var(--light) 0%,rgba(0,0,0,0) 100%)' }}>
 					Music
-				</div>
-
-
+				</div> */}
 
 			</StyledHomeSection >
 
@@ -211,7 +236,6 @@ export const Home = () => {
 								</Link>
 								<div className='top'>
 									<div className='user'>
-
 										<Link to='/user/smith' className='name'>Vote</Link>
 									</div>
 									<div className='save-btn'>
@@ -228,12 +252,9 @@ export const Home = () => {
 			<StyledSection style={{ backgroundColor: 'var(--light)' }}>
 				<p className='primary-text text-center' style={{ margin: 0, fontWeight: 500, fontSize: '18px', position: 'relative', zIndex: 999 }}>
 					<span className="" style={{ cursor: 'pointer' }} onMouseEnter={() => { if (playBtn) setEgg(true); }} >
-						Rickroll by Categories
+						Memes List
 					</span>
 				</p>
-				<video src="https://www.youtube.com/watch?v=bnmAi53H520" width="320" height="240">
-
-				</video>
 				{/* <h2 className='text-center' style={{ lineHeight: 1.1 }}>
 					Choose Your Desire
 					<br />
@@ -274,23 +295,20 @@ export const Home = () => {
 							<div className="resume-image">
 								<div className="animate-img"></div>
 								<div className="back"></div>
-								<img src={"./assets/img/resume.png"} />
+								<img width={330} height={330} src={"/photo_logo.png"} />
 							</div>
 						</div>
 						<div className="col-lg-6 col-md-6 col-sm-12 d center">
 							<div className="resume-panel">
 								<h1>
-									Don't just find. be found put your Music in front of great platforms
+									Free Airdrop
 								</h1>
 								<p>
-									It will be publish on social sites with your information.<br />
-									Why should do it. <br />
-									1.Free publish.<br />
-									2.To become famous.
+									We are aware that many crypto degens are currently holding onto meme coins. As a result, we are offering a free <span className='primary-text'>$PINGU</span> Airdrop for you. Please claim it by clicking the link below
 								</p>
 								<Button onClick={() => { setIsUpload(true); setShowLanguageModal(true) }} className='primary mt-2'>
-									Upload Your Music
-									<Icon icon="Upload" marginLeft={16} size={20} />
+									Free Airdrop
+									<Icon icon="Crypto" marginLeft={16} size={20} />
 								</Button>
 							</div>
 						</div>
@@ -298,90 +316,23 @@ export const Home = () => {
 				</div>
 			</StyledSection>
 
-			<StyledSection style={{ backgroundColor: 'var(--light)' }}>
-				<h2 className='text-center'><span>Comment about </span><span className='primary-text'>Crypto</span></h2>
-
-				<div className='container-sm mt-3'>
-					<div className="row">
-						{servicesData.map((i, k) => (
-							<div key={k} className='col-lg-3 col-md-4 col-sm-6'>
-								<div key={k} className='mt-1 mb-1'>
-									<Link to={"/user/" + i.name}>
-										<StyledUserCard>
-											<div className="verified">
-												<div className="icon">
-													<Icon icon="Verified" size={18} />
-												</div>
-											</div>
-											<div className="preferred">
-												<div className="icon">
-													<Icon icon="Preferred" size={18} margin={8} />
-												</div>
-											</div>
-											<div className='avatar'>
-												<img src={i.avatar} alt={i.avatar} width={400} height={400} />
-												{/* <Icon icon='ColorCheck' /> */}
-											</div>
-											<div className="name">
-												{i.name}
-											</div>
-											<div className='price'>${i.price} / Hr</div>
-											<div className='detail'>
-												{i.title}
-											</div>
-											<div className="country">
-												<Icon icon="Location" size={18} margin={8} />
-												New York, US
-											</div>
-											<div className="reviews">
-												<Others.Stars value={i.score} size={11} />
-												<div className='review'>
-													{i.score}
-												</div>
-											</div>
-										</StyledUserCard>
-									</Link>
-								</div>
+			<StyledSection style={{ backgroundColor: 'var(--back)' }}>
+				<div className="container">
+					<div className="row center">
+						<div className="col-lg-12 col-md-12 col-sm-12 d center">
+							<div className="resume-panel">
+								<h1>
+									CryptoCurrency
+								</h1>
+								<p>
+									Cryptocurrencies are a portrayal of a brand-new decentralization model for money. They also help to combat the monopoly of a currency and free money from control. No government organizations can set the worthiness of the coin or flow, and that crypto enthusiasts think makes cryptocurrencies secure and safe.
+								</p>
 							</div>
-						))}
+						</div>
 					</div>
 				</div>
 			</StyledSection>
 
-
-			<StyledSection style={{
-				background: 'var(--primary) url(/assets/img/landing-bg.png) no-repeat',
-				backgroundSize: '100%',
-				padding: '5em 2em',
-				color: '#fff'
-			}}
-			>
-				<div className='h3 text-center'>Subscribe Now!</div>
-				<div className='text-center' style={{ maxWidth: '900px', margin: '8px auto' }}>
-					Subscribe now and gain exclusive access to a wealth of Rickroll opportunities.
-				</div>
-				<div className='d middle mt-2' style={{ margin: '0 auto', maxWidth: 800, position: 'relative' }}>
-					<div style={{ flex: 1 }}>
-						<StyledInput
-							placeholder='Enter your email here'
-							style={{
-								background: '#eee',
-								borderColor: '#eee',
-								color: '#111'
-							}}
-						/>
-						<Button className="primary"
-							style={{
-								position: 'absolute',
-								right: '2px',
-								top: '2px'
-							}}>
-							Submit
-						</Button>
-					</div>
-				</div>
-
-			</StyledSection>
 
 			<StyledSection style={{ padding: '0' }}>
 				<ScrollContainer style={{ height: '0' }}>
@@ -389,13 +340,18 @@ export const Home = () => {
 						<span style={{ fontSize: "30px" }}>😀</span>
 					</Animator>
 					<Animator animation={ZoomInScrollOut} style={{ zIndex: 999 }}>
-						<span style={{ fontSize: "40px" }}>Never ganna give you up ✨</span>
+						<span style={{ fontSize: "40px" }}>NOOT NOOT</span>
 					</Animator>
 					<Animator style={{ zIndex: 999 }} animation={FadeUp}>
 						<span onClick={() => setRecordImg(true)} style={{ fontSize: "40px", cursor: 'pointer' }}>
 							{
 								recordImg ?
-									<img src="/assets/img/home/rickroll.gif" height={200} width={200} alt="click it" className="r-50" />
+									<video style={{ width: '250px', height: '250px' }} autoPlay>
+										<source src="/assets/pingu.mp4" type="video/mp4" />
+										<source src="/assets/pingu.mp4" type="video/ogg" />
+										Your browser does not support the video tag.
+									</video>
+									// <img src="/assets/img/home/rickroll.gif" height={200} width={200} alt="click it" className="r-50" />
 									:
 									<img src="/assets/record-trans.png" height={70} width={70} alt="click it" className="rotating" />
 							}
@@ -416,7 +372,7 @@ export const Home = () => {
 						<div className="flex">
 							<div className={`tab active`}>
 								{
-									isUpload ? 'What`s this? OMG' : 'Gotcha, Cool. You found good egg.'
+									isUpload ? 'NOOT NOOT' : 'Gotcha, NOOT NOOT. You found good egg.'
 								}
 							</div>
 							{/* <div className={`tab ${languageTab===2 ? "active" : ""}`} onClick={() => {setLanguageTab(2)}}>
@@ -429,8 +385,12 @@ export const Home = () => {
 					</div>
 					<div className="content">
 						<div className="row">
-
-							<img src={`/assets/img/home/${isUpload ? 'f-rickroll.gif' : 'rickroll.gif'}`} alt="" height={400} width={'100%'} className="" />
+							<video style={{ width: '100%', height: '100%' }} autoPlay loop>
+								<source src="/assets/pingu.mp4" type="video/mp4" />
+								<source src="/assets/pingu.mp4" type="video/ogg" />
+								Your browser does not support the video tag.
+							</video>
+							{/* <img src={`/assets/img/home/${isUpload ? 'f-rickroll.gif' : 'rickroll.gif'}`} alt="" height={400} width={'100%'} className="" /> */}
 						</div>
 					</div>
 				</StyledLanguageModal>
@@ -593,125 +553,20 @@ const StyledSection = styled.div`
 	}
 `
 
-const StyledUserCard = styled.div`
-	display: block;
-	margin: 16px ;
-	padding: 14px 20px 19px;
-	box-shadow: 0 1px 3px #12151b29;
-	border-radius: 4px 4px 0 0;
-	/* background-color: var(--light); */
-	cursor: pointer;
-	transition: 0.2s;
-	border: 1px solid var(--light-primary);
-	color: var(--text);
-	text-align: center;
-	min-height: 270px;
-	position: relative;
-	overflow: hidden;
-	@media only screen and (max-width: 767px) {
-		margin: 4px;
-	}
-	&:hover {
-		/* transform: translateY(-10px); */
-		/* background-color: var(--light-back); */
-		border-color: var(--dark-primary);
-		color: var(--text);
-		box-shadow: 1px 8px 20px var(--light-primary);
-		transform: scale(1.05);
-		.avatar {
-			img {
-				border: 1px solid var(--primary);
-				box-shadow: 1px 8px 10px var(--light-primary);
-				
-			}
-		}
-	}
-	.avatar {
-		text-align: center;
-		/* padding: 8px; */
-		img {
-			border-radius: 50%;
-			border: 2px solid transparent;
-			width: 100px;
-			height: 100px;
-			transition: 0.2s;
-			/* border: 6px solid #f0f0f0; */
-		}
-	}
-	.name {
-		font-weight: 600;
-		margin: 8px 0;
-		font-size: 20px;
-		font-weight: 700;
-	}
-	.price {
-		font-size: 16px;
-		font-weight: 400;
-		color: #0caa41;
-		margin:  0;
-	}
-	.detail {
-		margin: 0;
-		color: var(--gray-text);
-	}
-	.country {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 14px;
-		font-weight: 500;	
-		margin: 2px 0;
-		color: var(--gray-text);
-	}
-	.reviews{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 2px 0;
-		color: var(--gray-text);
-		.review {
-			margin-left: 8px;
-		}
-	}
-	.verified {
-		position: absolute;
-		right: 0;
-		top: 0;
-		&::before {
-			content: '';
-			position: absolute;
-			right: 0;
-			top: 0;
-			border-top: 50px solid #c851151f;
-			border-left: 50px solid transparent;
-		}
-		.icon {
-			z-index: 5;
-			position: relative;
-			color: #FF6700;
-			float: left;
-			margin: 6px 6px 0 0;
-		}
-	}
-	.preferred {
-		position: absolute;
-		left: 10px;
-		top: 8px;
-		color: #4eace1;
-		.icon {
-			z-index: 5;
-			position: relative;
-			float: left;
-			margin: 6px 6px 0 0;
-		}
-	}
-`
-
 const StyledHomeSection = styled.div`
 	padding: 78px 1rem 0;
 	position: relative;
 	@media only screen and (max-width: 767px) {
 		padding: 100px 8px;
+	}
+	.bg-video{
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		bottom: 0;
 	}
 	.play-button{
 		position: absolute;
@@ -760,6 +615,7 @@ const StyledHomeSection = styled.div`
 		.back {
 			position: absolute;
 			left: 10%;
+			visibility: hidden;
 			top: 20px;
 			max-width: 75%;
 			animation: jmSpin 20s linear infinite;
@@ -892,14 +748,4 @@ const StyledCategoryCard = styled.div`
 		font-size: 14px;
 		margin: 16px 0;
 	}
-`
-
-const StyledDarkBtn = styled.button`
-	border-radius: 0px 4px 4px 0px;
-	padding: 1em 1.5em;
-	border: 0;
-	cursor: pointer;
-	font-size: 1.2em;
-	background-color: var(--primary);
-	color: #fff;
 `

@@ -91,7 +91,7 @@ export const Header = () => {
 				<div className={`main ${status.isDashboard ? 'ml-1 mr-1' : 'container'}`}>
 					<div>
 						<Link to='/' style={{ paddingBottom: '0.1em', paddingTop: '0.5rem' }}>
-							<img src="/pingu.jpg" alt="logo" width={40} height={50} />
+							<img src="/photo_logo.png" alt="logo" width={50} style={{ height: '100%' }} />
 
 							{/* <div style={{fontWeight: 900, fontSize: 24, color: 'var(--primary)'}}>WORK</div> */}
 						</Link>
@@ -100,7 +100,7 @@ export const Header = () => {
 					<div className={`${isMenuOpend ? '' : 'hide'}`}>
 						<div>
 							<Link to='/' style={{ paddingBottom: '0.1em' }}>
-								<img src="/pingu.jpg" alt="logo" width={40} height={50} />
+								<img src="/photo_logo.png" alt="logo" width={50} style={{ height: '100%' }} />
 
 								{/* <span style={{fontSize: 24, color: 'var(--primary)', fontWeight: 700}}>WORK</span> */}
 							</Link>
@@ -163,8 +163,15 @@ export const Header = () => {
 										<div className='btn twitter'><Icon icon='Twitter' size={20} /></div>
 									</StyledSocialLoginBtn>
 									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
+										<div className='btn '>
+											<img src="/assets/telegram.jpg" width={36} height={36} alt="telegram" className="r-50" />
+											{/* <Icon icon='Telegram' size={22} /> */}
+										</div>
+									</StyledSocialLoginBtn>
+									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
 										<div className='btn github'>
-											<Icon icon='Github' size={22} />
+											<img src="/assets/dextools.svg" width={22} height={22} alt="dextools" className="r-50" />
+											{/* <Icon icon='Github' size={22} /> */}
 										</div>
 									</StyledSocialLoginBtn>
 
@@ -219,7 +226,7 @@ export const Header = () => {
 					<div className="header">
 						<div className="flex">
 							<div className={`tab active`}>
-								Gotcha
+								NOOT NOOT
 							</div>
 							{/* <div className={`tab ${languageTab===2 ? "active" : ""}`} onClick={() => {setLanguageTab(2)}}>
 								Currency
@@ -231,7 +238,12 @@ export const Header = () => {
 					</div>
 					<div className="content">
 						<div className="row">
-							<img src="/assets/img/home/rickroll.gif" alt="" height={400} width={'100%'} className="" />
+							<video style={{ width: '100%', height: '100%' }} autoPlay loop>
+								<source src="/assets/pingu.mp4" type="video/mp4" />
+								<source src="/assets/pingu.mp4" type="video/ogg" />
+								Your browser does not support the video tag.
+							</video>
+							{/* <img src="/assets/img/home/rickroll.gif" alt="" height={400} width={'100%'} className="" /> */}
 						</div>
 					</div>
 				</StyledLanguageModal>
@@ -698,72 +710,6 @@ const StyledHeader = styled.div`
 				}
 			}
 		}
-	}
-`
-
-const StyledDropDown = styled.div`
-	position: absolute;
-	top: 49px;
-	right: 0;
-	left: auto;
-	background-color: var(--menu-back);
-	/* box-shadow: 0 0 20px 0 var(--shadow); */
-	padding: 0;
-	border-radius: 6px;
-	transition: all 0.3s ease-in-out;
-	opacity: 0;
-	visibility: hidden;
-	overflow: hidden;
-	z-index: 999999;
-	color: var(--text);
-	@media (max-width: 992px) {
-		display: none;
-	}
-	> ul {
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		li {
-			width: 100%;
-			padding: 0;
-			display: block;
-			&:hover {
-				background-color: var(--hover-back);
-				cursor: pointer;
-			}
-			> :nth-child(1) {
-				padding: 1.2em 1em;
-				display: flex;
-				align-items: center;
-				gap: 0.7em;
-				justify-content: flex-start;
-				color: var(--text);
-			}
-		}
-	}
-	&.show {
-		opacity: 1;
-		visibility: visible;
-	}
-	&:hover {
-		opacity: 1;
-		visibility: visible;
-	}
-`
-
-
-
-const StyledNewBadge = styled.div`
-	position: absolute;
-	top: 16px;
-	right: 10px;
-	> :nth-child(1) {
-		width: 9px;
-		height: 9px;
-		border-radius: 50%;
-		border: 0;
-		background-color: #f24343;
 	}
 `
 
