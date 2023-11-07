@@ -14,38 +14,6 @@ const useSocket = () => {
 	const global = React.useContext(Context);
 	// const [connected, setConnected] = React.useState(false);
 
-	const { sendJsonMessage } = useWebSocket(config.api + '/' + config.appId + ':' + global.cookie, {
-		shouldReconnect: (closeEvent) => true,
-		onOpen: (e: WebSocketEventMap['open']) => {
-			global.update({ connected: true })
-			console.log("socket connected")
-		},
-		onClose: (e: WebSocketEventMap['close']) => {
-			global.update({ connected: false })
-			console.log("socket disconnected");
-		},
-		onMessage: async (e: WebSocketEventMap['message']) => {
-			try {
-				if (typeof e.data === "string") {
-					const { jsonrpc, id, result, error } = JSON.parse(decodeURI(e.data))
-					if (jsonrpc === "2.0" && typeof fns[id] === "function") {
-						await fns[id]({ result, error })
-					}
-				}
-			} catch (error) {
-
-			}
-		},
-		onError: (e: WebSocketEventMap['error']) => {
-			global.update({ connected: false })
-			console.log("socket error")
-		},
-		reconnectAttempts: 1000,
-		reconnectInterval: 5000,
-		retryOnError: true,
-		share: true
-	})
-
 	return {
 		sendSocket: (method: string, ...params: Array<any>): Promise<ServerResponse> => {
 			if (!global.connected) return Promise.resolve({ error: 10001 });

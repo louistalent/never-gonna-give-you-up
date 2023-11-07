@@ -11,23 +11,8 @@ import { Others, StyledBlogList, StyledServiceList } from '../../components/othe
 import "react-multi-carousel/lib/styles.css";
 import { Modal } from '../../components/modal';
 import { Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
+import axios from 'axios';
 
-const serviceCategories = [
-	{ title: 'Meme 2', img: '/assets/img/pingu/pingu2.jpg' },
-	{ title: 'Meme 3', img: '/assets/img/pingu/pingu3.jpg' },
-	{ title: 'Meme 4', img: '/assets/img/pingu/pingu4.jpg' },
-	{ title: 'Meme 5', img: '/assets/img/pingu/pingu5.jpg' },
-	{ title: 'Meme 6', img: '/assets/img/pingu/pingu6.jpg' },
-	{ title: 'Meme 7', img: '/assets/img/pingu/pingu7.jpg' },
-	{ title: 'Meme 8', img: '/assets/img/pingu/pingu8.jpg' },
-	{ title: 'Meme 9', img: '/assets/img/pingu/pingu9.jpg' },
-	{ title: 'Meme 10', img: '/assets/img/pingu/pingu10.jpg' },
-	{ title: 'Meme 11', img: '/assets/img/pingu/pingu11.jpg' },
-	{ title: 'Meme 12', img: '/assets/img/pingu/pingu12.jpg' },
-	{ title: 'Meme 13', img: '/assets/img/pingu/pingu13.jpg' },
-	{ title: 'Meme 14', img: '/assets/img/pingu/pingu14.jpg' },
-	{ title: 'Meme 15', img: '/assets/img/pingu/pingu15.jpg' },
-]
 
 const responsive = {
 	superLargeDesktop: {
@@ -53,50 +38,26 @@ const responsive = {
 	}
 };
 
-const servicesData = [
-	{ coverImg: '/assets/img/meme/meme-1.png', avatar: '/assets/img/team-2.jpg', name: 'james edwards', score: 4.7, title: 'I think Crypto is great to make your business', price: 160, link: '/services/programming-and-tech/portfolio/i-will-be-your-react-responsive-developer' },
-	{ coverImg: '/assets/img/meme/meme-2.png', avatar: '/assets/img/team-3.jpg', name: 'james edwards', score: 5, title: 'I already using Crypto in my business', price: 500, link: '/services/programming-and-tech/portfolio/i-will-be-your-react-responsive-developer' },
-	{ coverImg: '/assets/img/meme/meme-3.png', avatar: '/assets/img/team-4.jpg', name: 'james edwards', score: 2.9, title: 'Crypto is my life', price: 160, link: '/services/programming-and-tech/portfolio/i-will-be-your-react-responsive-developer' },
-	{ coverImg: '/assets/img/meme/meme-4.png', avatar: '/assets/img/team-5.jpg', name: 'james edwards', score: 0, title: 'I think crypto is using for rickroll. Lol', price: 300, link: '/services/programming-and-tech/portfolio/i-will-be-your-react-responsive-developer' },
-]
-
-const blogsData = [
-	{ coverImg: '/assets/img/b-1.jpg', author: 'James Edwards', title: 'Why people choose listio for own properties', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.', tags: [{ type: 'primary', name: 'Health' }, { type: 'purple', name: 'Business' }], url: 'why-people-choose-listio-for-own-properties' },
-	{ coverImg: '/assets/img/b-2.jpg', author: 'James Edwards', title: 'Why people choose listio for own properties', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.', tags: [{ type: 'danger', name: 'Banking' }, { type: 'primary', name: 'Stylish' }], url: 'why-people-choose-listio-for-own-properties' },
-	{ coverImg: '/assets/img/b-3.jpg', author: 'James Edwards', title: 'Why people choose listio for own properties', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.', tags: [{ type: 'danger', name: 'Fashion' }, { type: 'primary', name: 'Wedding' }], url: 'why-people-choose-listio-for-own-properties' },
-	{ coverImg: '/assets/img/b-1.jpg', author: 'James Edwards', title: 'Why people choose listio for own properties', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.', tags: [{ type: 'danger', name: 'Fashion' }, { type: 'primary', name: 'Wedding' }], url: 'why-people-choose-listio-for-own-properties' },
-]
-
 const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
 const FadeUp = batch(Fade(), Move(), Sticky());
 
 export const Home = () => {
 	const navigate = useNavigate()
-
 	const { darkTheme } = useSocket()
 
-	// useEffect(() => {
-	// 	const handleBeforeUnload = (e) => {
-	// 		// Customize your alert message here
-	// 		const message = "Are you sure you want to leave?";
-	// 		e.preventDefault();
-	// 		return (e.returnValue = message);
-	// 	};
-
-	// 	window.addEventListener('beforeunload', handleBeforeUnload);
-
-	// 	return () => {
-	// 		window.removeEventListener('beforeunload', handleBeforeUnload);
-	// 	};
-	// }, []);
-
 	const [playBtn, setPlayBtn] = React.useState(false)
-	const [egg, setEgg] = React.useState(false)
 	const [slideMove, setSlideMove] = React.useState(false)
 	const [slideMoved, setSlideMoved] = React.useState(false)
-
+	const [memeList, setMemeList] = React.useState([
+		{
+			idx: 0,
+			title: '',
+			img: '',
+			count: 0,
+			voted: false
+		},
+	])
 	const [showLanguageModal, setShowLanguageModal] = React.useState(false)
-	const [recordImg, setRecordImg] = React.useState(false);
 	const [isUpload, setIsUpload] = React.useState(false);
 
 	let targetAudio: any = window.document.getElementById("audioBtn");
@@ -114,11 +75,6 @@ export const Home = () => {
 	const stopInitEffectAudio = () => {
 		targetAudioEffect.pause();
 	};
-
-	useEffect(() => {
-		if (egg)
-			initEffectAudio()
-	}, [egg])
 
 	useEffect(() => {
 		if (slideMove) {
@@ -142,22 +98,47 @@ export const Home = () => {
 			});
 	};
 	useEffect(() => {
+		getMemeList()
 		attemptPlay();
 	}, []);
+	const getMemeList = async () => {
+		try {
+			const res = await axios.post('http://192.168.135.164:10203/api/vote/getmemelist', {
+			}, {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if (res.status == 200) {
+				setMemeList(res.data.data)
+			}
+		} catch (err: any) {
+			console.log(err)
+		}
+	}
+
+	const vote = async (id: number) => {
+		try {
+			const res = await axios.post('http://192.168.135.164:10203/api/vote', {
+				id
+			}, {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			if (res.status == 200) {
+				getMemeList();
+			}
+		} catch (err: any) {
+			console.log(err)
+		}
+	}
+
 	return (
 		<div>
-
 			<audio id='audioEffectBtn' src="/assets/rickroll-effect.mp3" />
 			<audio id='audioBtn' src="/assets/never.mp3" />
 
-
-
-
-			{/* <StyledSection style={{ backgroundColor: 'var(--light)' }}>
-				<h2 className='text-center'><span>Verified Pro </span><span className='primary-text'>Services</span></h2>
-				<div className='text-center'>Hand-vetted talent for all your professional needs. </div>
-				<img src="/assets/img/home/giphy.gif" alt="" width={'100%'} height={400} className="" />
-			</StyledSection> */}
 			<StyledHomeSection style={{ backgroundSize: '100% 100%', backgroundPosition: 'center center' }}>
 				<div className="bg-video">
 					<video
@@ -173,10 +154,11 @@ export const Home = () => {
 					<div className='row'>
 						<div className='col-lg-8 col-md-8 col-sm-12'>
 							<h3 className='mt' style={{ lineHeight: 1.3 }}>
-								<span style={{ visibility: `${playBtn ? 'visible' : 'hidden'}`, borderBottom: '3px solid var(--primary)', cursor: 'pointer', padding: '', margin: '0 16px', color: 'var(--primary)' }}>
+								<span style={{ visibility: `${playBtn ? 'visible' : 'hidden'}`, cursor: 'pointer', padding: '', margin: '0 16px', color: 'var(--primary)' }}>
 									{/* The Meme-iest Token in Crypto */}
-									Get Rickrolled by
-									<br />&nbsp;&nbsp; the Blockchain!
+									<br />
+									$PINGU - $NOOT
+									<br />
 								</span>
 							</h3>
 
@@ -228,18 +210,24 @@ export const Home = () => {
 					dotListClass="custom-dot-list-style"
 					itemClass="carousel-item-padding-30-px"
 				>
-					{serviceCategories.map((i, k) => (
+					{memeList.map((i, k) => (
 						<div key={"sponsored" + k} className='mr-1'>
 							<StyledServiceList>
 								<Link onMouseEnter={() => { if (playBtn) { setSlideMove(true); setSlideMoved(true) } }} onMouseLeave={() => { if (playBtn) setSlideMove(false) }} to="#">
 									<img src={i.img} alt={i.img} width={500} height={417} />
 								</Link>
 								<div className='top'>
-									<div className='user'>
-										<Link to='/user/smith' className='name'>Vote</Link>
+									<div onClick={() => vote(i.idx)} className='user'>
+										<a className='name' style={{ cursor: "pointer" }}>Vote</a>
 									</div>
-									<div className='save-btn'>
-										<Icon icon='Heart' />
+									<div onClick={() => vote(i.idx)} className='save-btn'>
+										{i.count}
+										{
+											i.voted ?
+												<Icon icon='Heart' className={`danger`} />
+												:
+												<Icon icon='Heart' />
+										}
 									</div>
 								</div>
 
@@ -248,10 +236,26 @@ export const Home = () => {
 					))}
 				</Carousel>
 			</StyledSection>
+			<StyledSection style={{ backgroundColor: 'var(--back)' }}>
+				<div className="container">
+					<div className="row center">
+						<div className="col-lg-12 col-md-12 col-sm-12 d center">
+							<div className="resume-panel">
+								<h1>
+									CryptoCurrency
+								</h1>
+								<p>
+									Cryptocurrencies are a portrayal of a brand-new decentralization model for money. They also help to combat the monopoly of a currency and free money from control. No government organizations can set the worthiness of the coin or flow, and that crypto enthusiasts think makes cryptocurrencies secure and safe.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</StyledSection>
 
 			<StyledSection style={{ backgroundColor: 'var(--light)' }}>
 				<p className='primary-text text-center' style={{ margin: 0, fontWeight: 500, fontSize: '18px', position: 'relative', zIndex: 999 }}>
-					<span className="" style={{ cursor: 'pointer' }} onMouseEnter={() => { if (playBtn) setEgg(true); }} >
+					<span className="" style={{ cursor: 'pointer' }} >
 						Memes List
 					</span>
 				</p>
@@ -261,12 +265,9 @@ export const Home = () => {
 					Category
 				</h2> */}
 				<div className='container mt-3 container-egg'>
-					<div className={`${egg ? 'show-egg' : 'hidden-egg'}`}>
-						<img onClick={() => { setShowLanguageModal(true); setIsUpload(false); }} style={{ cursor: 'pointer' }} src="/assets/ernstingsfamily-ostern.gif" width={50} height={70} alt="" className="eater-egg" />
-					</div>
 					<div className='row center'>
-						{serviceCategories.map((i, k) => (
-							<Link key={k} to={`#`} className='col-lg-3 col-md-4 col-sm-6'>
+						{memeList.map((i, k) => (
+							<a key={k} className='col-lg-3 col-md-4 col-sm-6' style={{ cursor: 'pointer' }}>
 								<StyledCategoryCard>
 									<img src={i.img} alt={i.img} style={{ height: '250px', width: '200px', borderRadius: '10px' }} className='category-symbol' />
 									<div className="title">{i.title}</div>
@@ -277,7 +278,7 @@ export const Home = () => {
 										</div>
 									</div>
 								</StyledCategoryCard>
-							</Link>
+							</a>
 						))}
 					</div>
 					{/* <div className="d center mt-2">
@@ -314,56 +315,6 @@ export const Home = () => {
 						</div>
 					</div>
 				</div>
-			</StyledSection>
-
-			<StyledSection style={{ backgroundColor: 'var(--back)' }}>
-				<div className="container">
-					<div className="row center">
-						<div className="col-lg-12 col-md-12 col-sm-12 d center">
-							<div className="resume-panel">
-								<h1>
-									CryptoCurrency
-								</h1>
-								<p>
-									Cryptocurrencies are a portrayal of a brand-new decentralization model for money. They also help to combat the monopoly of a currency and free money from control. No government organizations can set the worthiness of the coin or flow, and that crypto enthusiasts think makes cryptocurrencies secure and safe.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</StyledSection>
-
-
-			<StyledSection style={{ padding: '0' }}>
-				<ScrollContainer style={{ height: '0' }}>
-					<Animator animation={batch(Fade(), Sticky(), MoveOut(0, -200))}>
-						<span style={{ fontSize: "30px" }}>😀</span>
-					</Animator>
-					<Animator animation={ZoomInScrollOut} style={{ zIndex: 999 }}>
-						<span style={{ fontSize: "40px" }}>NOOT NOOT</span>
-					</Animator>
-					<Animator style={{ zIndex: 999 }} animation={FadeUp}>
-						<span onClick={() => setRecordImg(true)} style={{ fontSize: "40px", cursor: 'pointer' }}>
-							{
-								recordImg ?
-									<video style={{ width: '250px', height: '250px' }} autoPlay>
-										<source src="/assets/pingu.mp4" type="video/mp4" />
-										<source src="/assets/pingu.mp4" type="video/ogg" />
-										Your browser does not support the video tag.
-									</video>
-									// <img src="/assets/img/home/rickroll.gif" height={200} width={200} alt="click it" className="r-50" />
-									:
-									<img src="/assets/record-trans.png" height={70} width={70} alt="click it" className="rotating" />
-							}
-						</span>
-					</Animator>
-
-					<Animator animation={batch(Fade(), Sticky())}>
-						<span style={{ fontSize: "30px", fontWeight: 'bold', color: 'var(--secondary)' }}>
-							PepelitoBlaze`s Production. Copyright@2023
-						</span>
-					</Animator>
-				</ScrollContainer>
 			</StyledSection>
 
 			<Modal onClose={() => { setShowLanguageModal(false) }} show={showLanguageModal} closeOverlay={true} style={{ padding: '0', borderRadius: '8px', maxWidth: '600px' }}>

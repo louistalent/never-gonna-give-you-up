@@ -143,12 +143,6 @@ export const Header = () => {
 									</Link>
 								</li>
 								<li>
-									<Link to='#'>
-										<div className="icon"><Icon icon="Rickroll" size={24} /></div>
-										<div>Contact</div>
-									</Link>
-								</li>
-								<li>
 									<Link onClick={() => setShowWhitepaper(true)} to='#'>
 										<div className="icon"><Icon icon="Blog" size={24} /></div>
 										<div>Whitepaper</div>
@@ -159,21 +153,19 @@ export const Header = () => {
 						<ul>
 							<>
 								<li style={{ position: 'relative' }} className="login d gap-sm center middle">
-									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
+									{/* <StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
 										<div className='btn twitter'><Icon icon='Twitter' size={20} /></div>
 									</StyledSocialLoginBtn>
 									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
 										<div className='btn '>
 											<img src="/assets/telegram.jpg" width={36} height={36} alt="telegram" className="r-50" />
-											{/* <Icon icon='Telegram' size={22} /> */}
 										</div>
 									</StyledSocialLoginBtn>
 									<StyledSocialLoginBtn onClick={() => setSocialIcon(true)}>
 										<div className='btn github'>
 											<img src="/assets/dextools.svg" width={22} height={22} alt="dextools" className="r-50" />
-											{/* <Icon icon='Github' size={22} /> */}
 										</div>
-									</StyledSocialLoginBtn>
+									</StyledSocialLoginBtn> */}
 
 								</li>
 							</>
